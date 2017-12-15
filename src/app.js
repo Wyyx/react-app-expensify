@@ -14,13 +14,12 @@ import 'react-dates/lib/css/_datepicker.css'
 
 const store = configureStore()
 
-// Add initial data and test
-store.dispatch(addExpense({ description: 'drink', amount: 5, createdAt: 5000 }))
-store.dispatch(addExpense({ description: 'movie', amount: 30, createdAt: 1280 }))
-store.dispatch(addExpense({ description: 'game', amount: 10, createdAt: 16666 }))
-console.log(store.getState())
-
-const state = store.getState()
+// // Add initial data and test
+// store.dispatch(addExpense({ description: 'drink', amount: 5, createdAt: 5000 }))
+// store.dispatch(addExpense({ description: 'movie', amount: 30, createdAt: 1280 }))
+// store.dispatch(addExpense({ description: 'game', amount: 10, createdAt: 16666 }))
+// console.log(store.getState())
+// const state = store.getState()
 
 const jsx = (
 	<Provider store={store}>
