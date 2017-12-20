@@ -4,12 +4,13 @@
 	"description": "This is a react project",
 	"main": "index.js",
 	"scripts": {
-		"start": "live-server public",
+		"start": "node server/server.js",
+		"live": "live-server public",
 		"build:dev": "webpack",
 		"build:prod": "webpack -p --env production ",
 		"dev": "webpack-dev-server --open",
-		"prod": "node server/server.js",
-		"test": "jest --config=jest.config.json"
+		"test": "jest --config=jest.config.json",
+		"heroku-postbuild": "yarn run build:prod"
 	},
 	"author": "",
 	"license": "ISC",
