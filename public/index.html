@@ -8,10 +8,24 @@
     <title>Expensify</title>
     <link rel="icon" type="image/png" href="/images/favicon.png">
     <link rel="stylesheet" href="/dist/styles.css">
+    <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyAD6ij8qTGWgF4y1zvLp35aa0bZVQh62MY",
+            authDomain: "jzwdyx-100.firebaseapp.com",
+            databaseURL: "https://jzwdyx-100.firebaseio.com",
+            projectId: "jzwdyx-100",
+            storageBucket: "jzwdyx-100.appspot.com",
+            messagingSenderId: "763052660678"
+        };
+        firebase.initializeApp(config);
+    </script>
 </head>
 
 <body>
     <div id="app"></div>
+
 
     <script src="/dist/bundle.js "></script>
 </body>

@@ -4,22 +4,16 @@ import ReactDOM from 'react-dom'
 import AppRouter from './routers/AppRouter'
 import configureStore from './store/configureStore'
 import { Provider } from 'react-redux'
-import { addExpense, removeExpense, editExpense } from './actions/expenses'
+import { startSetExpenses } from './actions/expenses'
 import { setTextFilter, setStartDate, setEndDate, sortByDate, sortByAmount } from './actions/filters'
 import getVisibleExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 import 'react-dates/initialize'
 import 'react-dates/lib/css/_datepicker.css'
+import './firebase/firebase'
 
 const store = configureStore()
-
-// // Add initial data and test
-// store.dispatch(addExpense({ description: 'drink', amount: 5, createdAt: 5000 }))
-// store.dispatch(addExpense({ description: 'movie', amount: 30, createdAt: 1280 }))
-// store.dispatch(addExpense({ description: 'game', amount: 10, createdAt: 16666 }))
-// console.log(store.getState())
-// const state = store.getState()
 
 const jsx = (
 	<Provider store={store}>
@@ -27,4 +21,8 @@ const jsx = (
 	</Provider>
 )
 
-ReactDOM.render(jsx, document.getElementById('app'))
+ReactDOM.render(<p>Loading...</p>, document.getElementById('app'))
+
+store.dispatch(startSetExpenses()).then(() => {
+	ReactDOM.render(jsx, document.getElementById('app'))
+})
