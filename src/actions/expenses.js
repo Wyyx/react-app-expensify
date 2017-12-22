@@ -8,15 +8,19 @@ export const addExpense = (expense) => ({
 })
 
 export const startAddExpense = (expense = {}) => {
-	return (dispatch) => {
-		return database.ref('expenses').push(expense).then((ref) => {
-			dispatch(
-				addExpense({
-					id: ref.key,
-					...expense
-				})
-			)
-		})
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid
+		return database
+			.ref(`users/${uid}/expenses`)
+			.push(expense)
+			.then((ref) => {
+				dispatch(
+					addExpense({
+						id: ref.key,
+						...expense
+					})
+				)
+			})
 	}
 }
 
@@ -40,34 +44,46 @@ export const setExpenses = (expenses) => ({
 })
 
 export const startSetExpenses = () => {
-	return (dispatch) => {
-		return database.ref('expenses').once('value').then((snapshot) => {
-			const expenses = []
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid
+		return database
+			.ref(`users/${uid}/expenses`)
+			.once('value')
+			.then((snapshot) => {
+				const expenses = []
 
-			snapshot.forEach((childSnapshot) => {
-				expenses.push({
-					id: childSnapshot.key,
-					...childSnapshot.val()
+				snapshot.forEach((childSnapshot) => {
+					expenses.push({
+						id: childSnapshot.key,
+						...childSnapshot.val()
+					})
 				})
-			})
 
-			dispatch(setExpenses(expenses))
-		})
+				dispatch(setExpenses(expenses))
+			})
 	}
 }
 
 export const startEditExpense = (id, expense) => {
-	return (dispatch) => {
-		return database.ref(`expenses/${id}`).update({ ...expense }).then((snapshot) => {
-			dispatch(editExpense(id, expense))
-		})
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid
+		return database
+			.ref(`users/${uid}/expenses/${id}`)
+			.update({ ...expense })
+			.then((snapshot) => {
+				dispatch(editExpense(id, expense))
+			})
 	}
 }
 
 export const startRemoveExpense = (id) => {
-	return (dispatch) => {
-		return database.ref(`expenses/${id}`).remove().then(function() {
-			dispatch(removeExpense(id))
-		})
+	return (dispatch, getState) => {
+		const uid = getState().auth.uid
+		return database
+			.ref(`users/${uid}/expenses/${id}`)
+			.remove()
+			.then(function() {
+				dispatch(removeExpense(id))
+			})
 	}
 }
